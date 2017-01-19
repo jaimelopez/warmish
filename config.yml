@@ -1,0 +1,5 @@
+sitemaps:
+  - "http://www.misite.com/index-1.xml"
+  - "http://www.misite.com/sitemap-x.xml"
+  - "http://www.misite.com/sitemap-y.xml"
+concurrency: 5
