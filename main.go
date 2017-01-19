@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"warmish/sitemap"
 	"warmish/config"
+	"warmish/sitemap"
 )
 
 func main() {
