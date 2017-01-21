@@ -5,9 +5,17 @@ import (
 	"io/ioutil"
 )
 
+const (
+	DEFAULT_PURGE = true
+	DEFAULT_CONCURRENCY = 10
+	DEFAULT_BREAK = "0ms"
+)
+
 type Config struct {
 	Sitemaps    []string
-	Concurrency int
+	Purge       bool
+	Concurrency uint
+	Break string
 }
 
 func (config *Config) Parse(filename string) error {
@@ -21,7 +29,12 @@ func (config *Config) Parse(filename string) error {
 }
 
 func New(filename string) *Config {
-	config := new(Config)
+	config := &Config {
+		Purge: DEFAULT_PURGE,
+		Concurrency: DEFAULT_CONCURRENCY,
+		Break: DEFAULT_BREAK,
+	}
+
 	error := config.Parse(filename)
 
 	if error != nil {

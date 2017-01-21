@@ -1,19 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"warmish/config"
 	"warmish/sitemap"
+	"warmish/warmer"
 )
 
 func main() {
 	configuration := config.New("config.yml")
 
-	sitemapIndex := sitemap.Fetch(configuration.Sitemaps)
+	sitemapIndex := sitemap.Crawl(configuration.Sitemaps)
+	urls := sitemapIndex.GetAllLocations()
 
-	fmt.Println(sitemapIndex.GetAllUrls())
-
-	//for _, url := range sitemapIndex.GetAllUrls() {
-	//	go callUrl(url)
-	//}
+	(warmer.Warmer {
+		Purge: configuration.Purge,
+		Concurrency: configuration.Concurrency,
+		Break: configuration.Break,
+	}).Run(urls)
 }
