@@ -60,6 +60,7 @@ sub vcl_recv {
 
 In the following section we setting upIn the following section we set up that Varnish always will preload a document after the purge of it.
 >Notice that with this option you could set to false the ***warmup*** option in Warnish because Varnish itself will warmup the documents after the purge.
+
 ```
 sub vcl_purge {
     set req.method = "GET";
