@@ -20,13 +20,16 @@ func main() {
 	app.Flags = []cli.Flag {
 		cli.StringFlag{
 			Name: "config",
-			Value: "config.yml",
 			Usage: "specify the configuration file",
 			Destination: &configFile,
 		},
 	}
 
 	app.Action = func(c *cli.Context) error {
+		if _, err := os.Stat(configFile); os.IsNotExist(err) {
+			panic("Configuration file not specified or not found!")
+		}
+
 		configuration := config.New(configFile)
 
 		sitemapIndex := sitemap.Crawl(configuration.Sitemaps)
