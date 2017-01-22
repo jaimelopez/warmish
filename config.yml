@@ -1,5 +1,6 @@
 sitemaps:
-  - "http://www.misite.com/index-1.xml"
-  - "http://www.misite.com/sitemap-x.xml"
-  - "http://www.misite.com/sitemap-y.xml"
-concurrency: 5
+  - "http://www.midomain.com/sitemap-index.xml"
+concurrency: 1
+purge: true
+warmup: true
+break: 1000ms

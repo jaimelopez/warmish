@@ -7,7 +7,8 @@ import (
 )
 
 type Warmer struct {
-	Purge       bool
+	Purge bool
+	Warmup bool
 	Concurrency uint
 	Break string
 }
@@ -37,7 +38,10 @@ func (warmer Warmer) consume(url string, locker <-chan uint, waitGroup *sync.Wai
 		Purge(url)
 	}
 
-	WarmUp(url)
+	if warmer.Warmup {
+		Warmup(url)
+	}
+
 
 	duration, _  := time.ParseDuration(warmer.Break)
 	time.Sleep(duration)

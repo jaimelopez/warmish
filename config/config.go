@@ -7,13 +7,15 @@ import (
 
 const (
 	DEFAULT_PURGE = true
+	DEFAULT_WARMUP = false
 	DEFAULT_CONCURRENCY = 10
 	DEFAULT_BREAK = "0ms"
 )
 
 type Config struct {
-	Sitemaps    []string
-	Purge       bool
+	Sitemaps []string
+	Purge bool
+	Warmup bool
 	Concurrency uint
 	Break string
 }
@@ -31,6 +33,7 @@ func (config *Config) Parse(filename string) error {
 func New(filename string) *Config {
 	config := &Config {
 		Purge: DEFAULT_PURGE,
+		Warmup: DEFAULT_WARMUP,
 		Concurrency: DEFAULT_CONCURRENCY,
 		Break: DEFAULT_BREAK,
 	}

@@ -19,7 +19,7 @@ func Purge(url string) error {
 	return error
 }
 
-func WarmUp(url string) error {
+func Warmup(url string) error {
 	log.Println("Warming " + url)
 
 	_, error := http.Get(url)
