@@ -1,9 +1,9 @@
 package main
 
 import (
-	"warmish/config"
-	"warmish/sitemap"
-	"warmish/warmer"
+	"github.com/jaimelopez/warmish/config"
+	"github.com/jaimelopez/warmish/sitemap"
+	"github.com/jaimelopez/warmish/warmer"
 	"github.com/urfave/cli"
 	"os"
 )
