@@ -35,6 +35,17 @@ purge: true
 warmup: true
 ```
 
+You can run the applicattion just once or configuring it for schedules cron. If you want to schedules the execution then you can configure it.
+
+For example, if you would to execute it every hour:
+```
+schedule: 0 0 * * * *
+```
+This will run the applicattion every hour. Also yo can configure the same behaviour  with this:
+```
+schedule: @hourly
+```
+
 ## Enabling Varnish purge
 If you just want to allows the warm-up and don't want to deal with the purge of those files then you can leave Varnish doing how it was configured.
 

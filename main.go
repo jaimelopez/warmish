@@ -1,11 +1,14 @@
 package main
 
 import (
+	"errors"
+	"os"
+
 	"github.com/jaimelopez/warmish/config"
 	"github.com/jaimelopez/warmish/sitemap"
 	"github.com/jaimelopez/warmish/warmer"
+	"github.com/robfig/cron"
 	"github.com/urfave/cli"
-	"os"
 )
 
 func main() {
@@ -17,33 +20,48 @@ func main() {
 	app.Author = "Jaime Lopez"
 	app.Version = "0.1"
 
-	app.Flags = []cli.Flag {
+	app.Flags = []cli.Flag{
 		cli.StringFlag{
-			Name: "config",
-			Usage: "specify the configuration file",
+			Name:        "config",
+			Usage:       "specify the configuration file",
 			Destination: &configFile,
 		},
 	}
 
-	app.Action = func(c *cli.Context) error {
+	app.Action = func(context *cli.Context) error {
 		if _, err := os.Stat(configFile); os.IsNotExist(err) {
-			panic("Configuration file not specified or not found!")
+			return errors.New("Configuration file not specified or not found!")
 		}
 
-		configuration := config.New(configFile)
-
-		sitemapIndex := sitemap.Crawl(configuration.Sitemaps)
-		urls := sitemapIndex.GetAllLocations()
-
-		(warmer.Warmer{
-			Purge: configuration.Purge,
-			Warmup: configuration.Warmup,
-			Concurrency: configuration.Concurrency,
-			Break: configuration.Break,
-		}).Run(urls)
+		run(config.New(configFile))
 
 		return nil
 	}
 
 	app.Run(os.Args)
+}
+
+func run(configuration *config.Config) {
+	if configuration.Schedule == "" {
+		execute(configuration)
+		return
+	}
+
+	scheduler := cron.New()
+	scheduler.AddFunc(configuration.Schedule, func() {
+		execute(configuration)
+	})
+	scheduler.Start()
+}
+
+func execute(configuration *config.Config) {
+	sitemapIndex := sitemap.Crawl(configuration.Sitemaps)
+	urls := sitemapIndex.GetAllLocations()
+
+	(warmer.Warmer{
+		Purge:       configuration.Purge,
+		Warmup:      configuration.Warmup,
+		Concurrency: configuration.Concurrency,
+		Break:       configuration.Break,
+	}).Run(urls)
 }
