@@ -42,7 +42,6 @@ func (warmer Warmer) consume(url string, locker <-chan uint, waitGroup *sync.Wai
 		Warmup(url)
 	}
 
-
 	duration, _  := time.ParseDuration(warmer.Break)
 	time.Sleep(duration)
 
