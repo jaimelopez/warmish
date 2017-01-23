@@ -3,10 +3,9 @@ package main
 import (
 	"errors"
 	"os"
-
-	"github.com/jaimelopez/warmish/config"
-	"github.com/jaimelopez/warmish/sitemap"
-	"github.com/jaimelopez/warmish/warmer"
+	"warmish/config"
+	"warmish/sitemap"
+	"warmish/warmer"
 	"github.com/robfig/cron"
 	"github.com/urfave/cli"
 )
@@ -22,9 +21,10 @@ func main() {
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
-			Name:        "config",
-			Usage:       "specify the configuration file",
-			Destination: &configFile,
+			Name:        	"config",
+			Usage:       	"specify the configuration file",
+			Value:	 	"config.yml",
+			Destination:	&configFile,
 		},
 	}
 

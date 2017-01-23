@@ -1,18 +1,27 @@
-appname := Warmish
+appname := warmish
 version := 0.1-beta
+config := config.yml
+target := build
 
 sources := $(wildcard *.go)
 
-build = GOOS=$(1) GOARCH=$(2) go build -o build/$(appname)$(3)
-tar = cd build && tar -cvzf ${appname}-${version}-$(1)_$(2).tar.gz $(appname)$(3) && rm $(appname)$(3)
-zip = cd build && zip ${appname}-${version}-$(1)_$(2).zip $(appname)$(3) && rm $(appname)$(3)
+build = GOOS=$(1) GOARCH=$(2) go build -o ${target}/$(appname)$(3)
+tar = cd ${target} && tar -cvzf ${appname}-${version}-$(1)_$(2).tar.gz $(appname)$(3) ${config} && rm $(appname)$(3)
+zip = cd ${target} && zip ${appname}-${version}-$(1)_$(2).zip $(appname)$(3) ${config} && rm $(appname)$(3)
 
-.PHONY: all windows darwin linux clean
+.PHONY: all package windows darwin linux clean
 
-all: windows darwin linux
+all: package windows darwin linux purge
+
+package:
+	mkdir -p ${target}
+	cp ${config} ${target}/
 
 clean:
-	rm -rf build/
+	rm -rf ${target}/
+
+purge:
+	rm ${target}/${config}
 
 ##### LINUX BUILDS #####
 linux: build/linux_arm.tar.gz build/linux_arm64.tar.gz build/linux_386.tar.gz build/linux_amd64.tar.gz
