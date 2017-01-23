@@ -3,3 +3,4 @@
 *.phar
 *.phar.asc
 .idea
+/build/*
