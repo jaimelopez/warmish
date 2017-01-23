@@ -41,7 +41,7 @@ For example, if you would to execute it every hour:
 ```
 schedule: 0 0 * * * *
 ```
-This will run the applicattion every hour. Also yo can configure the same behaviour  with this:
+Or in the same way but more simple:
 ```
 schedule: @hourly
 ```
