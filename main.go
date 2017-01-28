@@ -8,6 +8,7 @@ import (
 	"warmish/warmer"
 	"github.com/robfig/cron"
 	"github.com/urfave/cli"
+	"log"
 )
 
 func main() {
@@ -52,9 +53,13 @@ func run(configuration *config.Config) {
 		execute(configuration)
 	})
 	scheduler.Start()
+
+	<-make(chan struct{})
 }
 
 func execute(configuration *config.Config) {
+	log.Println("Running cron...")
+
 	sitemapIndex := sitemap.Crawl(configuration.Sitemaps)
 	urls := sitemapIndex.GetAllLocations()
 

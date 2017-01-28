@@ -39,11 +39,15 @@ You can run the applicattion just once or configuring it for schedules cron. If 
 
 For example, if you would to execute it every hour:
 ```
-schedule: 0 0 * * * *
+schedule: "0 0 * * * *"
 ```
 Or in the same way but more simple:
 ```
-schedule: @hourly
+schedule: "@hourly"
+```
+You can also specify a periods like:
+```
+schedule: "@every 4h"
 ```
 
 ## Enabling Varnish purge

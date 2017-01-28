@@ -1,6 +1,7 @@
 sitemaps:
   - "http://www.midomain.com/sitemap-index.xml"
-concurrency: 1
+concurrency: 10
 purge: true
 warmup: true
 break: 1000ms
+schedule: "@every 4h"
