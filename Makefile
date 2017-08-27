@@ -43,7 +43,7 @@ build/linux_arm64.tar.gz: $(sources)
 	$(call tar,linux,arm64)
 
 ##### DARWIN (MAC) BUILDS #####
-darwin: build/darwin_amd64.tar.gz
+darwin: build/darwin_amd64.tar.gz build/darwin_386.tar.gz
 
 build/darwin_amd64.tar.gz: $(sources)
 	$(call build,darwin,amd64,)
